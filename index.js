@@ -6,5 +6,5 @@ app.get('/', (req, res) => (
 ))
 
 app.listen(port, () => (
-    console.log("Welcome to Art Portfolio")
+    console.log(`\n *** Listening on port ${port} *** \n`)
 ));
