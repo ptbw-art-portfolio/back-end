@@ -25,7 +25,7 @@ authRoute.post('/signup', async (req, res) => {
         try {
             const hash = bcryptjs.hashSync(user.password, 14);
             user.password = hash;
-            const [ id ] = await db('user').insert(user);
+            const id = await db('user').returning('id').insert(user);
             res.status(200).json({id})
         } catch (err) {
             console.log(err)
