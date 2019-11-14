@@ -37,14 +37,15 @@ authRoute.post('/signup', async (req, res) => {
 });
 
 authRoute.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    if ( username && password ) {
-        db('user').where({username}).first()
-        .then(data => {
-            const user = data;
+    const credentials = req.body;
+    if ( credentials.email && credentials.password ) {
+        db('user').where({"email": credentials.email}).first()
+        .then(user => {
                 if ( user === undefined ) {
                     res.status(400).json({message:"User was not found"});
-                } else if ( bcryptjs.compareSync(password, user.password) || (password == user.password)) {
+                } 
+                
+                if ( bcryptjs.compareSync(credentials.password, user.password) || (password == user.password)) {
                     const token = generateToken(req.body);
                     delete user.password;
                     res.status(200).json({ token, user});
