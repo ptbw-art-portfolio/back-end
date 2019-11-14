@@ -45,13 +45,12 @@ authRoute.post('/login', (req, res) => {
                     res.status(400).json({message:"User was not found"});
                 } 
                 
-                if ( bcryptjs.compareSync(credentials.password, user.password) || (password == user.password)) {
+                if (bcryptjs.compareSync(credentials.password, user.password)) {
                     const token = generateToken(req.body);
                     delete user.password;
                     res.status(200).json({ token, user});
                 } else {
-                    console.log('if')
-                res.status(400).json({message:"invalid credentials"});
+                    res.status(400).json({message:"invalid credentials"});
             }
         })
         .catch(err => res.status(500));
