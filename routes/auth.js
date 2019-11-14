@@ -21,7 +21,7 @@ const db = require('../data/knexConfig');
 
 authRoute.post('/signup', async (req, res) => {
     const user = req.body;
-    if (user.firstName && user.lastName && user.username && user.email && user.password ) {
+    if (user.fullName && user.email && user.username && user.password ) {
         try {
             const hash = bcryptjs.hashSync(user.password, 14);
             user.password = hash;
@@ -31,6 +31,8 @@ authRoute.post('/signup', async (req, res) => {
             console.log(err)
             res.status(500).json({err})
         }
+    } else {
+        res.status(400).json({message: "missing requred fields"})
     }
 });
 
