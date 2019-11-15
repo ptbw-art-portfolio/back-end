@@ -20,7 +20,6 @@ postsRoute.get('/:id', (req, res) => {
     const id = req.params.id
     db('post').where({"id": id})
     .then((post) => {
-        console.log(post)
         if(post.length > 0) {
             res.status(200).json({post: post})
         } else {
@@ -33,4 +32,15 @@ postsRoute.get('/:id', (req, res) => {
     })
 })
 
+postsRoute.post('/', (req, res) => {
+    const post = req.body
+    db('post').insert(post)
+    .then((id) => {
+        res.status(201).json({post_id: id, message: "Success"})
+    })
+    .catch((err) => {
+        console.error(err)
+        res.status(500).json({message: "Internal server error"})
+    })
+})
 module.exports = postsRoute;
