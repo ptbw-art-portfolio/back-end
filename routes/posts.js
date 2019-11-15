@@ -18,10 +18,14 @@ postsRoute.get('/', (req, res) => {
 
 postsRoute.get('/:id', (req, res) => {
     const id = req.params.id
-    db('user').where({"id": id})
-    .then((user) => {
-        delete user.password
-        res.status(200).json({user: user})
+    db('post').where({"id": id})
+    .then((post) => {
+        console.log(post)
+        if(post.length > 0) {
+            res.status(200).json({post: post})
+        } else {
+            res.status(200).json({message: "post not found"})
+        }
     })
     .catch((err) => {
         console.error(err)
