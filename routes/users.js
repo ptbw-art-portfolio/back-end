@@ -11,7 +11,7 @@ usersRoute.get('/', (req, res) => {
             delete user.password 
             return user
         })
-        res.status(200).json({users: users})
+        res.status(200).json({data: users})
     })
     .catch((err) => {
         console.error(err)
@@ -24,7 +24,7 @@ usersRoute.get('/:id', (req, res) => {
     db('user').where({"id": id})
     .then((user) => {
         delete user.password
-        res.status(200).json({user: user})
+        res.status(200).json({data: user})
     })
     .catch((err) => {
         console.error(err)

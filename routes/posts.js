@@ -8,7 +8,7 @@ postsRoute.get('/', (req, res) => {
     db('post')
     .then((data) => {
         const posts = data
-        res.status(200).json({posts: posts})
+        res.status(200).json({data: posts})
     })
     .catch((err) => {
         console.error(err)
@@ -21,10 +21,22 @@ postsRoute.get('/:id', (req, res) => {
     db('post').where({"id": id})
     .then((post) => {
         if(post.length > 0) {
-            res.status(200).json({post: post})
+            res.status(200).json({data: post})
         } else {
             res.status(200).json({message: "post not found"})
         }
+    })
+    .catch((err) => {
+        console.error(err)
+        res.status(500).json({message: "Internal server error"})
+    })
+})
+
+postsRoute.post('/', (req, res) => {
+    const post = req.body
+    db('post').insert(post)
+    .then((id) => {
+        res.status(201).json({post_id: id, message: "Success"})
     })
     .catch((err) => {
         console.error(err)
