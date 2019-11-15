@@ -5,13 +5,10 @@ const postsRoute = express.Router();
 const db = require('../data/knexConfig');
 
 postsRoute.get('/', (req, res) => {
-    db('user')
+    db('post')
     .then((data) => {
-        const users = data.map((user) => {
-            delete user.password 
-            return user
-        })
-        res.status(200).json({users: users})
+        const posts = data
+        res.status(200).json({posts: posts})
     })
     .catch((err) => {
         console.error(err)
