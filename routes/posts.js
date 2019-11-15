@@ -21,7 +21,7 @@ postsRoute.get('/:id', (req, res) => {
     db('post').where({"id": id})
     .then((post) => {
         if(post.length > 0) {
-            res.status(200).json({data: post})
+            res.status(201)
         } else {
             res.status(200).json({message: "post not found"})
         }
