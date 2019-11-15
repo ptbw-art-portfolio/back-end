@@ -44,11 +44,11 @@ postsRoute.post('/', (req, res) => {
     })
 })
 
-postsRoute.post('/', (req, res) => {
-    const post = req.body
-    db('post').insert(post)
+postsRoute.delete('/:id', (req, res) => {
+    const id = req.params.id
+    db('post').where({"id": id}).del()
     .then((id) => {
-        res.status(201).json({post_id: id, message: "Success"})
+        res.status(202).end()
     })
     .catch((err) => {
         console.error(err)
