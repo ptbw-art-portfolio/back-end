@@ -32,4 +32,16 @@ usersRoute.get('/:id', (req, res) => {
     })
 })
 
+usersRoute.get('/:id/posts', (req, res) => {
+    const id = req.params.id
+    db('post').where({"user_id": id})
+    .then((posts) => {
+        res.status(200).json({data: posts})
+    })
+    .catch((err) => {
+        console.error(err)
+        res.status(500).json({message: "Internal server error"})
+    })
+})
+
 module.exports = usersRoute;
