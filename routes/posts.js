@@ -35,8 +35,8 @@ postsRoute.get('/:id', (req, res) => {
 postsRoute.post('/', (req, res) => {
     const post = req.body
     db('post').insert(post)
-    .then(() => {
-        res.status(201)
+    .then((id) => {
+        res.status(201).json({message: "Success"})
     })
     .catch((err) => {
         console.error(err)
