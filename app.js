@@ -21,15 +21,17 @@ const postsRoute = require('./routes/posts')
 const app = express();
 
 /*
-* Middleware 
+* Restreicted Middleware
 */
+
+const restricted = require('./helpers/restricted') 
 
 app.use(cors())
 app.use(helmet())
 app.use(express.json())
 app.use('/auth', authRoute)
-app.use('/users', usersRoute)
-app.use('/posts', postsRoute)
+app.use('/users',restricted, usersRoute)
+app.use('/posts', restricted, postsRoute)
 
 /*
 * Export 
