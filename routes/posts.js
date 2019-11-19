@@ -6,9 +6,8 @@ const db = require('../data/knexConfig');
 
 postsRoute.get('/', (req, res) => {
     db('post')
-    .then((data) => {
-        const posts = data
-        res.status(200).json({data: posts})
+    .then((posts) => {
+        res.status(200).json(posts)
     })
     .catch((err) => {
         console.error(err)
@@ -21,7 +20,7 @@ postsRoute.get('/:id', (req, res) => {
     db('post').where({"id": id})
     .then((post) => {
         if(post.length > 0) {
-            res.status(200).json({data: post})
+            res.status(200).json(post)
         } else {
             res.status(200).json({message: "post not found"})
         }
