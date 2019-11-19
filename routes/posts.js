@@ -22,7 +22,7 @@ postsRoute.get('/:id', (req, res) => {
         if(post.length > 0) {
             res.status(200).json(post)
         } else {
-            res.status(200).json({message: "post not found"})
+            res.status(404).json({message: "post not found"})
         }
     })
     .catch((err) => {
