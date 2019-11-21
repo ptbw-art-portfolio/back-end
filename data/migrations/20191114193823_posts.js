@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
       table.text('image_url').notNullable();
       table.text('description').notNullable();
       table.integer('likes').defaultTo(0)
+      table.text('date')
       table.timestamps(true, true);
       table.integer('user_id').notNullable().references('id').inTable('user').onDelete('CASCADE').index();
     });
