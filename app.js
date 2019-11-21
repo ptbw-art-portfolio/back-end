@@ -24,14 +24,12 @@ const app = express();
 * Restreicted Middleware
 */
 
-const restricted = require('./helpers/restricted') 
-
 app.use(cors())
 app.use(helmet())
 app.use(express.json())
 app.use('/auth', authRoute)
-app.use('/users',restricted, usersRoute)
-app.use('/posts', restricted, postsRoute)
+app.use('/users', usersRoute)
+app.use('/posts', postsRoute)
 
 /*
 * Export 

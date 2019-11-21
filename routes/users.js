@@ -1,8 +1,7 @@
 const express = require('express');
-
 const usersRoute = express.Router();
-
 const db = require('../data/knexConfig');
+const restricted = require('../helpers/restricted');
 
 usersRoute.get('/', (req, res) => {
     db('user')

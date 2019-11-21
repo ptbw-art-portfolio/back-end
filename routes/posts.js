@@ -1,8 +1,7 @@
 const express = require('express');
-
 const postsRoute = express.Router();
-
 const db = require('../data/knexConfig');
+const restricted = require('../helpers/restricted');
 
 postsRoute.get('/', (req, res) => {
     db('post')
@@ -31,7 +30,7 @@ postsRoute.get('/:id', (req, res) => {
     })
 })
 
-postsRoute.post('/', (req, res) => {
+postsRoute.post('/', restricted, (req, res) => {
     const post = req.body
     db('post').insert(post)
     .then((id) => {
@@ -43,7 +42,7 @@ postsRoute.post('/', (req, res) => {
     })
 })
 
-postsRoute.delete('/:id', (req, res) => {
+postsRoute.delete('/:id', restricted, (req, res) => {
     const id = req.params.id
     db('post').where({"id": id}).del()
     .then((id) => {
