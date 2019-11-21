@@ -179,7 +179,7 @@
       "title": "title1",
       "medium": "paint",
       "image_url": "someURLsdkfjl",
-      "description": "Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat. Nulla porttitor accumsan tincidunt. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      "description": "Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat. ",
       "likes": 0,
       "created_at": "2019-11-15T02:50:46.622Z",
       "updated_at": "2019-11-15T02:50:46.622Z",
@@ -190,7 +190,7 @@
       "title": "title2",
       "medium": "paint",
       "image_url": "someURLsdkfjl",
-      "description": "Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat. Nulla porttitor accumsan tincidunt. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      "description": "Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat. ",
       "likes": 0,
       "created_at": "2019-11-15T02:54:37.200Z",
       "updated_at": "2019-11-15T02:54:37.200Z",
@@ -333,6 +333,7 @@
 | name           | type   | required | description              |
 | -------------- | ------ | -------- | ------------------------ |
 | `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | Must be include token |
 
 #### Body
 
@@ -372,6 +373,50 @@
 
 --------------------------------------------
 
+  ### **Update Post*
+*method url*: `/posts/:id`
+
+*http method*: **[POST]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | Must be include token |
+
+#### Body
+
+| name           | type   | required | 
+| -------------- | ------ | -------- | 
+| `title`     | String | Yes      |  
+| `medium`     | String | Yes      | 
+| `image_url`     | String | Yes       |
+| `description`     | String | Yes      |                          
+| `user_id`     | Integer | Yes      |                          
+
+
+#### Example
+```
+{
+	"title": "title6",
+	"medium": "paint",
+	"image_url": "someURLsdkfjl",
+	"description": "Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat.",
+	"user_id": 1
+}
+  ```
+#### Response
+##### 202 (Accepted)
+  ###### Example Response
+```
+{
+  "message": "Update successful!"
+}
+  ```
+
+--------------------------------------------
+
   ### **Delete Post by Id**
 *method url*: `/posts/:id`
 
@@ -382,6 +427,7 @@
 | name           | type   | required | description              |
 | -------------- | ------ | -------- | ------------------------ |
 | `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | Must be include token |
 
 #### Response
 ##### 202 (accepted)

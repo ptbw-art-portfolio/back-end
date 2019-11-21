@@ -42,6 +42,19 @@ postsRoute.post('/', restricted, (req, res) => {
     })
 })
 
+postsRoute.put('/:id', restricted, (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    db('post').where({"id": id}).update(body)
+    .then((id) => {
+        res.status(202).json({message: "Update successful!"})
+    })
+    .catch((err) => {
+        console.error(err)
+        res.status(500).json({message: "Internal server error"})
+    })
+})
+
 postsRoute.delete('/:id', restricted, (req, res) => {
     const id = req.params.id
     db('post').where({"id": id}).del()
