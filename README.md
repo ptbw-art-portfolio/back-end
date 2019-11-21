@@ -373,10 +373,10 @@
 
 --------------------------------------------
 
-  ### **Update Post*
+  ### **Update Post**
 *method url*: `/posts/:id`
 
-*http method*: **[POST]**
+*http method*: **[PUT]**
 
 #### Headers
 
