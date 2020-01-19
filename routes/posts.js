@@ -32,14 +32,18 @@ postsRoute.get('/:id', (req, res) => {
 
 postsRoute.post('/', restricted, (req, res) => {
     const post = req.body
-    db('post').insert(post)
-    .then((id) => {
-        res.status(201).json({message: "Success"})
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json({message: "Internal server error"})
-    })
+    if (post.title && post.medium && post.image_url && post.description && post.user_id) {
+        db('post').insert(post)
+        .then((id) => {
+            res.status(201).json({message: "Success"})
+        })
+        .catch((err) => {
+            console.error(err)
+            res.status(500).json({message: "Internal server error"})
+        })
+    } else {
+        res.status(400).json({message: "Bad request."})
+    }
 })
 
 postsRoute.put('/:id', restricted, (req, res) => {
