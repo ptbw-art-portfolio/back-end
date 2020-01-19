@@ -1,7 +1,7 @@
 const express = require('express');
 const usersRoute = express.Router();
 const db = require('../data/knexConfig');
-const restricted = require('../helpers/restricted');
+const Users = require('../model/users');
 
 usersRoute.get('/', (req, res) => {
     db('user')
@@ -20,15 +20,16 @@ usersRoute.get('/', (req, res) => {
 
 usersRoute.get('/:id', (req, res) => {
     const id = req.params.id
-    db('user').where({"id": id})
-    .then((user) => {
-        delete user.password
-        res.status(200).json(user)
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json({message: "Internal server error"})
-    })
+    Users.findById(id)
+    // db('user').where({"id": id})
+    // .then((user) => {
+    //     delete user.password
+    //     res.status(200).json(user)
+    // })
+    // .catch((err) => {
+    //     console.error(err)
+    //     res.status(500).json({message: "Internal server error"})
+    // })
 })
 
 usersRoute.get('/:id/posts', (req, res) => {
