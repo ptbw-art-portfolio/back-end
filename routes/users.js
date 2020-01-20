@@ -8,7 +8,7 @@ usersRoute.get('/', async (req, res) => {
         const users = await Users.findAll();
         res.status(200).json(users);
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).json({message: "Internal server error"});
     }
 });
