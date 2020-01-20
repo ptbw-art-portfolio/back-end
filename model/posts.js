@@ -30,6 +30,5 @@ function update(post_id, post) {
 };
 
 function deleteById(id) {
-    console.log("id inside model", id)
     return db('post').where({"id": id}).del();
 };
