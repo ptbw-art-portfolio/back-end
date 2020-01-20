@@ -26,7 +26,6 @@ postsRoute.get('/:id', async (req, res) => {
     }
 });
 
-// RESTRICTED 
 postsRoute.post('/', async (req, res) => {
     try {
         const post = req.body
@@ -38,17 +37,17 @@ postsRoute.post('/', async (req, res) => {
     }
 })
 
-postsRoute.put('/:id', restricted, (req, res) => {
-    const id = req.params.id;
-    const body = req.body;
-    db('post').where({"id": id}).update(body)
-    .then((id) => {
-        res.status(202).json({message: "Update successful!"})
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json({message: "Internal server error"})
-    })
+// RESTRICTED
+postsRoute.put('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        const post = await Posts.update(id, body);
+        res.status(200).json(post);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Internal server error"});
+    }
 })
 
 postsRoute.delete('/:id', restricted, (req, res) => {
