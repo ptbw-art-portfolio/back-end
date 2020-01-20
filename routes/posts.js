@@ -15,21 +15,16 @@ postsRoute.get('/', async (req, res) => {
     }
 });
 
-postsRoute.get('/:id', (req, res) => {
-    const id = req.params.id
-    db('post').where({"id": id})
-    .then((post) => {
-        if(post.length > 0) {
-            res.status(200).json(post)
-        } else {
-            res.status(404).json({message: "post not found"})
-        }
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json({message: "Internal server error"})
-    })
-})
+postsRoute.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const post = await Posts.findById(id);
+        res.status(200).json(post);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Internal server error"});
+    }
+});
 
 postsRoute.post('/', restricted, (req, res) => {
     const post = req.body
