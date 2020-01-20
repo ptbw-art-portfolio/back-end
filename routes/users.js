@@ -1,6 +1,5 @@
 const express = require('express');
 const usersRoute = express.Router();
-const db = require('../data/knexConfig');
 const Users = require('../model/users');
 const Posts = require('../model/posts');
 
