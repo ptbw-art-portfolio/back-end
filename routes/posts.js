@@ -1,8 +1,6 @@
 const express = require('express');
 const postsRoute = express.Router();
-const db = require('../data/knexConfig');
 const restricted = require('../helpers/restricted');
-const Users = require('../model/users');
 const Posts = require('../model/posts')
 
 postsRoute.get('/', async (req, res) => {
@@ -50,15 +48,14 @@ postsRoute.put('/:id', async (req, res) => {
     }
 })
 
-postsRoute.delete('/:id', restricted, (req, res) => {
-    const id = req.params.id
-    db('post').where({"id": id}).del()
-    .then((id) => {
-        res.status(202).end()
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json({message: "Internal server error"})
-    })
+// RESTRICTED
+postsRoute.delete('/:id', async (req, res) => {
+    try {
+        const id = await req.params.id;
+        res.status(202).end();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Internal server error"});
+    }
 })
 module.exports = postsRoute;

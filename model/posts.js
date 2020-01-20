@@ -1,6 +1,7 @@
 const db = require('../data/knexConfig');
 
 module.exports = {
+    deleteById,
     findById,
     findAll,
     findByUserId,
@@ -12,7 +13,7 @@ function findById(id) {
     return db('post').where({id: id});
 };
 
-function findAll(id) {
+function findAll() {
     return db('post');
 };
 
@@ -24,6 +25,11 @@ function insert(post) {
     return db('post').insert(post);
 };
 
-function update(id, post) {
-    return db('post').where({id: id}).update(post);
-}
+function update(post_id, post) {
+    return db('post').where({id: post_id}).update(post);
+};
+
+function deleteById(id) {
+    console.log("id inside model", id)
+    return db('post').where({"id": id}).del();
+};
