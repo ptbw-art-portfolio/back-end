@@ -10,11 +10,5 @@ function findById(id) {
 };
 
 function findAll() {
-    db('user')
-    .then((res) => {
-        console.log(res);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+    return db('user');
 };

@@ -3,19 +3,14 @@ const usersRoute = express.Router();
 const db = require('../data/knexConfig');
 const Users = require('../model/users');
 
-usersRoute.get('/', (req, res) => {
-    db('user')
-    .then((data) => {
-        const users = data.map((user) => {
-            delete user.password 
-            return user
-        })
-        res.status(200).json(users)
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json({message: "Internal server error"})
-    })
+usersRoute.get('/', async (req, res) => {
+    try {
+        const users = await Users.findAll();
+        res.status(200).json(users);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message: "Internal server error"});
+    }
 });
 
 usersRoute.get('/:id', async (req, res) => {
