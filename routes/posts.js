@@ -26,19 +26,15 @@ postsRoute.get('/:id', async (req, res) => {
     }
 });
 
-postsRoute.post('/', restricted, (req, res) => {
-    const post = req.body
-    if (post.title && post.medium && post.image_url && post.description && post.user_id) {
-        db('post').insert(post)
-        .then((id) => {
-            res.status(201).json({message: "Success"})
-        })
-        .catch((err) => {
-            console.error(err)
-            res.status(500).json({message: "Internal server error"})
-        })
-    } else {
-        res.status(400).json({message: "Bad request."})
+// RESTRICTED 
+postsRoute.post('/', async (req, res) => {
+    try {
+        const post = req.body
+        const id = await Posts.insert(post);
+        res.status(200).json({id: id});
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Internal server error"});
     }
 })
 

@@ -3,7 +3,8 @@ const db = require('../data/knexConfig');
 module.exports = {
     findById,
     findAll,
-    findByUserId
+    findByUserId,
+    insert
 }
 
 function findById(id) {
@@ -16,4 +17,8 @@ function findAll(id) {
 
 function findByUserId(userId) {
     return db('post').where({user_id: userId});
+};
+
+function insert(post) {
+    return db('post').insert(post);
 };
