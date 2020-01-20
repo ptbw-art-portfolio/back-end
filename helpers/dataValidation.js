@@ -18,6 +18,17 @@ function validatePosts(req, res, next) {
     }
 };
 
-function validateUsers(req, res) {
-    
+function validateUsers(req, res, next) {
+    const { 
+        fullName,
+        username,
+        email, 
+        password
+        } = req.body;
+
+    if (fullName && username && email && password){
+        next();
+    } else {
+        res.status(400).json({message: "Missing required fields."})
+    }
 }
