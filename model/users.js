@@ -6,17 +6,11 @@ module.exports = {
 };
 
 function findById(id) {
-    db('users')
-    .then((res) => {
-        console.log(res);
-    })
-    .catch((err) => {
-        console.error(err)
-    })
+    return db('user').where({id: id})
 };
 
 function findAll() {
-    db('users')
+    db('user')
     .then((res) => {
         console.log(res);
     })
