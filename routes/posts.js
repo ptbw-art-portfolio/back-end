@@ -5,15 +5,14 @@ const restricted = require('../helpers/restricted');
 const Users = require('../model/users');
 const Posts = require('../model/posts')
 
-postsRoute.get('/', (req, res) => {
-    db('post')
-    .then((posts) => {
+postsRoute.get('/', async (req, res) => {
+    try {
+        const posts = await Posts.findAll();
         res.status(200).json(posts)
-    })
-    .catch((err) => {
+    } catch (err) {
         console.error(err)
         res.status(500).json({message: "Internal server error"})
-    })
+    }
 });
 
 postsRoute.get('/:id', (req, res) => {
