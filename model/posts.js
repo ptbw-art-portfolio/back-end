@@ -7,13 +7,13 @@ module.exports = {
 }
 
 function findById(id) {
-    return db('user').where({id: id});
+    return db('post').where({id: id});
 };
 
 function findAll(id) {
-    return db('users');
+    return db('post');
 };
 
 function findByUserId(userId) {
-    return db('posts').where({user_id: userId});
+    return db('post').where({user_id: userId});
 };
