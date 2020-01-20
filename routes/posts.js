@@ -1,7 +1,8 @@
 const express = require('express');
 const postsRoute = express.Router();
 const restricted = require('../helpers/restricted');
-const Posts = require('../model/posts')
+const Posts = require('../model/posts');
+const dataValidation = require('../helpers/dataValidation');
 
 postsRoute.get('/', async (req, res) => {
     try {
@@ -24,7 +25,7 @@ postsRoute.get('/:id', async (req, res) => {
     }
 });
 
-postsRoute.post('/', async (req, res) => {
+postsRoute.post('/', dataValidation.validatePosts, async (req, res) => {
     try {
         const post = req.body
         const id = await Posts.insert(post);
