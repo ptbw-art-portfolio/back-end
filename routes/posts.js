@@ -2,6 +2,8 @@ const express = require('express');
 const postsRoute = express.Router();
 const db = require('../data/knexConfig');
 const restricted = require('../helpers/restricted');
+const Users = require('../model/users');
+const Posts = require('../model/posts')
 
 postsRoute.get('/', (req, res) => {
     db('post')
