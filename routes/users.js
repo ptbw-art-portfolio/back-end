@@ -2,6 +2,7 @@ const express = require('express');
 const usersRoute = express.Router();
 const db = require('../data/knexConfig');
 const Users = require('../model/users');
+const Posts = require('../model/posts');
 
 usersRoute.get('/', async (req, res) => {
     try {
@@ -23,16 +24,15 @@ usersRoute.get('/:id', async (req, res) => {
     }
 });
 
-usersRoute.get('/:id/posts', (req, res) => {
-    const id = req.params.id
-    db('post').where({"user_id": id})
-    .then((posts) => {
+usersRoute.get('/:id/posts', async (req, res) => {
+    try {
+        const id = req.params.id
+        const posts = await Posts.findByUserId(id);        
         res.status(200).json(posts)
-    })
-    .catch((err) => {
-        console.error(err)
+    } catch (err) {
+        console.err(err);
         res.status(500).json({message: "Internal server error"})
-    })
+    }
 })
 
 module.exports = usersRoute;
